@@ -1,16 +1,123 @@
-import type React from "react"
+import type { Metadata } from "next"
+import { Inter, Poppins } from "next/font/google"
 import "./globals.css"
-import { Inter } from "next/font/google"
-import Head from "next/head"
-import { GA_TRACKING_ID } from '@/lib/gtag';
-import Script from "next/script";
 
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-inter",
+  display: "swap",
+})
 
-const inter = Inter({ subsets: ["latin"] })
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-poppins",
+  display: "swap",
+})
 
-export const metadata = {
-  title: "ShadowGrow - Modern Software Solutions",
-  description: "Build, deploy, and scale applications with unprecedented speed and reliability.",
+export const metadata: Metadata = {
+  title: "ShadowGrow - Complete Digital Commerce Platform",
+  description: "Sell firmware, software, e-books, and digital products with our complete website solution. Built with Next.js, React Admin, Node.js, and AI-powered analytics.",
+  keywords: [
+    "digital commerce",
+    "software sales",
+    "firmware sales",
+    "e-book platform",
+    "digital products",
+    "Next.js",
+    "React Admin",
+    "Node.js",
+    "AI analytics",
+    "online store",
+    "digital marketplace"
+  ],
+  authors: [{ name: "ShadowGrow Team" }],
+  creator: "ShadowGrow",
+  publisher: "ShadowGrow",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL("https://shadowgrow.com"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://shadowgrow.com",
+    siteName: "ShadowGrow",
+    title: "ShadowGrow - Complete Digital Commerce Platform",
+    description: "Sell firmware, software, e-books, and digital products with our complete website solution.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "ShadowGrow Digital Commerce Platform",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@shadowgrow",
+    creator: "@shadowgrow",
+    title: "ShadowGrow - Complete Digital Commerce Platform",
+    description: "Sell firmware, software, e-books, and digital products with our complete website solution.",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: "your-google-verification-code",
+    yandex: "your-yandex-verification-code",
+    yahoo: "your-yahoo-verification-code",
+  },
+}
+
+// Structured data for SEO
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ShadowGrow Digital Commerce Platform",
+  "description": "Complete website script for selling firmware, software, e-books, and digital products",
+  "url": "https://shadowgrow.com",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "220",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "150"
+  }
+}
+
+const organizationData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ShadowGrow",
+  "url": "https://shadowgrow.com",
+  "logo": "https://shadowgrow.com/logo.png",
+  "sameAs": [
+    "https://twitter.com/shadowgrow",
+    "https://linkedin.com/company/shadowgrow"
+  ]
 }
 
 export default function RootLayout({
@@ -19,65 +126,74 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-
-        <meta name="keywords" content="ShadowGrow, Software Solutions, SaaS, Cloud, Digital Products, Online Store" />
-        <meta name="author" content="ShadowGrow Inc" />
-        <meta name="robots" content="index, follow" />
-
-        {/* Open Graph */}
-        <meta property="og:title" content="ShadowGrow - Modern Software Solutions" />
-        <meta property="og:description" content="Build, deploy, and scale applications with unprecedented speed and reliability." />
-        <meta property="og:image" content="/logo.png" />
-        <meta property="og:url" content="https://shadowgrow.com" />
-        <meta property="og:type" content="website" />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="ShadowGrow - Modern Software Solutions" />
-        <meta name="twitter:description" content="Build, deploy, and scale applications with ShadowGrow." />
-        <meta name="twitter:image" content="/logo.png" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
-
-        {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/site.webmanifest" />
-        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-
-
-        {/* Canonical */}
-        <link rel="canonical" href="https://shadowgrow.com" />
-
-        {/* Theme */}
-        <meta name="theme-color" content="#000000" />
-
-        {/* Google Analytics Script */}
-        <Script
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+        {/* Preconnect to external domains for performance */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        
+        {/* Service Worker Registration */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                      console.log('SW registered: ', registration);
+                    })
+                    .catch(function(registrationError) {
+                      console.log('SW registration failed: ', registrationError);
+                    });
+                });
+              }
+            `,
+          }}
         />
-        <Script
-          id="gtag-init"
-          strategy="afterInteractive"
+        
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationData),
+          }}
+        />
+        
+        {/* Google Analytics */}
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID || 'G-XXXXXXXXXX'}`}
+        />
+        <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', '${GA_TRACKING_ID}');
+              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID || 'G-XXXXXXXXXX'}', {
+                page_title: document.title,
+                page_location: window.location.href,
+              });
             `,
           }}
         />
-
-
+        
+        {/* Google Site Verification */}
+        <meta name="google-site-verification" content="your-google-verification-code" />
+        <meta name="msvalidate.01" content="your-bing-verification-code" />
+        <meta name="yandex-verification" content="your-yandex-verification-code" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.variable} ${poppins.variable} antialiased`}>
+        {children}
+      </body>
     </html>
   )
 }
